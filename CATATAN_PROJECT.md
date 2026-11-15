@@ -497,3 +497,16 @@ application/
    - Komponen visual baris progres tahapan perkara:
      `Pengajuan Formulir ➔ Verifikasi Berkas ➔ Jadwal Temu Konsultasi ➔ Kontrak Kesepakatan ➔ Sidang Pengadilan ➔ Selesai`.
    - Memberikan transparansi penuh kepada Klien mengenai tahapan perkara yang sedang berjalan.
+
+---
+
+## 15. Instruksi Deployment Dosen (GitHub & Vercel)
+- **Repository GitHub**: `https://github.com/yudayuanita05-alt/web-hukum.git` (Branch: `main`)
+- **Status**: Sudah berhasil di-push ke GitHub.
+- **Target Deployment**: Vercel Serverless Platform.
+- **Konfigurasi Khusus Vercel**:
+  1. Entry point serverless: `api/index.php`.
+  2. Konfigurasi runtime PHP: `vercel.json` dengan runtime `vercel-php`.
+  3. Konfigurasi penyimpanan sementara: `/tmp` untuk compiled views, cache, dan session (mengatasi limitasi read-only filesystem di Vercel).
+  4. Database: Memerlukan koneksi Cloud MySQL (TiDB Cloud / Aiven / Clever Cloud) atau SQLite ephemeral di `/tmp` agar web bisa diakses live di Vercel.
+
