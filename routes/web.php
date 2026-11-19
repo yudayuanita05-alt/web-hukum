@@ -12,11 +12,22 @@ use Illuminate\Support\Facades\Route;
 // Public Routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+// Separate login pages per role
+Route::get('/login', [AuthController::class, 'showLogin'])->name('login'); // generic fallback
+Route::get('/login/admin', [AuthController::class, 'showLoginAdmin'])->name('login.admin');
+Route::get('/login/pengacara', [AuthController::class, 'showLoginPengacara'])->name('login.pengacara');
+Route::get('/login/klien', [AuthController::class, 'showLoginKlien'])->name('login.klien');
 
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
 Route::post('/register', [AuthController::class, 'register'])->name('register.post');
 Route::match(['get', 'post'], '/logout', [AuthController::class, 'logout'])->name('logout');
+
+// Payment Gateway Callback, Token & QRIS Simulator
+Route::post('/payment/notification', [PaymentGatewayController::class, 'handleNotification'])->name('payment.notification');
+Route::get('/payment/snap-token/{id}', [PaymentGatewayController::class, 'getSnapToken'])->name('payment.snap_token');
+Route::get('/payment/qris-data/{id}', [PaymentGatewayController::class, 'getQrisData'])->name('payment.qris_data');
+Route::get('/payment/gopay-qris/{id}', [PaymentGatewayController::class, 'chargeGopayQris'])->name('payment.gopay_qris');
 
 
 
