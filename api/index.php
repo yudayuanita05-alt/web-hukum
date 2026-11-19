@@ -25,3 +25,4 @@ putenv('APP_EVENTS_CACHE=/tmp/events.php');
 
 // Teruskan request ke public/index.php Laravel
 require __DIR__ . '/../public/index.php';
+
