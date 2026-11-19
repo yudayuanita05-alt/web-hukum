@@ -9,28 +9,47 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    public function showLogin()
+    public function showLogin(Request $request)
     {
-        if (Auth::check()) {
+        if ($request->has('switch')) {
+            Auth::logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+        } elseif (Auth::check()) {
             return $this->redirectByRole(Auth::user());
         }
         // default login page (generic)
         return view('auth.login');
     }
 
-    // Role‑specific login pages with distinct content
-    public function showLoginAdmin()
+    // Role‑specific login pages with distinct content (auto switch if logged in with different role)
+    public function showLoginAdmin(Request $request)
     {
+        if (Auth::check() && !Auth::user()->isAdmin()) {
+            Auth::logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+        }
         return view('auth.login_admin');
     }
 
-    public function showLoginPengacara()
+    public function showLoginPengacara(Request $request)
     {
+        if (Auth::check() && !Auth::user()->isPengacara()) {
+            Auth::logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+        }
         return view('auth.login_pengacara');
     }
 
-    public function showLoginKlien()
+    public function showLoginKlien(Request $request)
     {
+        if (Auth::check() && !Auth::user()->isKlien()) {
+            Auth::logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+        }
         return view('auth.login_klien');
     }
 
@@ -98,7 +117,16 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('login')->with('success', 'Anda telah berhasil logout.');
+        $to = $request->query('to');
+        if ($to === 'pengacara') {
+            return redirect()->route('login.pengacara')->with('success', 'Silakan pilih akun Advokat / Pengacara.');
+        } elseif ($to === 'admin') {
+            return redirect()->route('login.admin')->with('success', 'Silakan pilih akun Sekretariat / Admin.');
+        } elseif ($to === 'klien') {
+            return redirect()->route('login.klien')->with('success', 'Silakan pilih akun Klien / Pemohon.');
+        }
+
+        return redirect()->route('login', ['switch' => 1])->with('success', 'Anda telah berhasil keluar. Silakan pilih akun untuk masuk kembali.');
     }
 
     private function redirectByRole($user)

@@ -218,17 +218,36 @@
                                 <span class="fw-bold">{{ Auth::user()->name }}</span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end shadow border-0">
-                                <li class="dropdown-header text-muted">Akun Terdaftar: {{ Auth::user()->username }}</li>
+                                <li class="dropdown-header text-muted">Akun Aktif: <strong>{{ Auth::user()->username }}</strong></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li class="dropdown-header small text-uppercase fw-bold text-navy">Ganti Peran / Akun:</li>
+                                <li>
+                                    <a class="dropdown-item py-2" href="{{ route('logout', ['to' => 'pengacara']) }}">
+                                        <i class="fa-solid fa-scale-balanced text-success me-2"></i> Masuk sbg <strong>Advokat</strong>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item py-2" href="{{ route('logout', ['to' => 'admin']) }}">
+                                        <i class="fa-solid fa-user-shield text-primary me-2"></i> Masuk sbg <strong>Admin</strong>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item py-2" href="{{ route('logout', ['to' => 'klien']) }}">
+                                        <i class="fa-solid fa-user text-warning me-2"></i> Masuk sbg <strong>Klien</strong>
+                                    </a>
+                                </li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li>
-                                    <form action="{{ route('logout') }}" method="POST">
-                                        @csrf
-                                        <button type="submit" class="dropdown-item text-danger">
-                                            <i class="fa-solid fa-right-from-bracket me-2"></i> Logout
-                                        </button>
-                                    </form>
+                                    <a class="dropdown-item text-danger py-2 fw-semibold" href="{{ route('logout') }}">
+                                        <i class="fa-solid fa-right-from-bracket me-2"></i> Keluar (Logout)
+                                    </a>
                                 </li>
                             </ul>
+                        </li>
+                        <li class="nav-item ms-lg-2">
+                            <a href="{{ route('logout') }}" class="btn btn-sm btn-outline-danger d-flex align-items-center mt-2 mt-lg-0 px-3 shadow-sm" title="Keluar dari akun saat ini">
+                                <i class="fa-solid fa-arrow-right-from-bracket me-1"></i> Keluar
+                            </a>
                         </li>
                     @endguest
                 </ul>

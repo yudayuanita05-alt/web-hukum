@@ -21,7 +21,7 @@ Route::get('/login/klien', [AuthController::class, 'showLoginKlien'])->name('log
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
 Route::post('/register', [AuthController::class, 'register'])->name('register.post');
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::match(['get', 'post'], '/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Payment Gateway Callback, Token & QRIS Simulator
 Route::post('/payment/notification', [PaymentGatewayController::class, 'handleNotification'])->name('payment.notification');
