@@ -46,6 +46,8 @@ $envVars = [
     'CACHE_STORE' => 'array',
     'SESSION_DRIVER' => 'database',
     'SESSION_LIFETIME' => '120',
+    'SESSION_SECURE_COOKIE' => 'true',
+    'SESSION_SAME_SITE' => 'lax',
     'LOG_CHANNEL' => 'stderr',
 ];
 
