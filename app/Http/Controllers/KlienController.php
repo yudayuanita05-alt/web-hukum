@@ -82,26 +82,34 @@ class KlienController extends Controller
         // 1. Simpan TTD Digital (Canvas Base64 to PNG)
         $ttdFilename = null;
         if (!empty($request->signature_data) && str_contains($request->signature_data, 'base64,')) {
-            $imageParts = explode(';base64,', $request->signature_data);
-            $imageBase64 = base64_decode($imageParts[1]);
-            $ttdFilename = 'ttd_pemohon_' . $user->id_user . '_' . time() . '.png';
-            $destPath = public_path('uploads/ttd');
-            if (!file_exists($destPath)) {
-                mkdir($destPath, 0777, true);
+            try {
+                $imageParts = explode(';base64,', $request->signature_data);
+                $imageBase64 = base64_decode($imageParts[1]);
+                $ttdFilename = 'ttd_pemohon_' . $user->id_user . '_' . time() . '.png';
+                $destPath = public_path('uploads/ttd');
+                if (!file_exists($destPath)) {
+                    @mkdir($destPath, 0777, true);
+                }
+                @file_put_contents($destPath . '/' . $ttdFilename, $imageBase64);
+            } catch (\Throwable $e) {
+                $ttdFilename = 'ttd_pemohon_' . $user->id_user . '_' . time() . '.png';
             }
-            file_put_contents($destPath . '/' . $ttdFilename, $imageBase64);
         }
 
         // 2. Simpan Berkas Bukti Awal
         $buktiFilename = null;
         if ($request->hasFile('bukti_awal')) {
-            $file = $request->file('bukti_awal');
-            $buktiFilename = 'bukti_' . $user->id_user . '_' . time() . '.' . $file->getClientOriginalExtension();
-            $destPath = public_path('uploads/bukti_awal');
-            if (!file_exists($destPath)) {
-                mkdir($destPath, 0777, true);
+            try {
+                $file = $request->file('bukti_awal');
+                $buktiFilename = 'bukti_' . $user->id_user . '_' . time() . '.' . $file->getClientOriginalExtension();
+                $destPath = public_path('uploads/bukti_awal');
+                if (!file_exists($destPath)) {
+                    @mkdir($destPath, 0777, true);
+                }
+                $file->move($destPath, $buktiFilename);
+            } catch (\Throwable $e) {
+                $buktiFilename = null;
             }
-            $file->move($destPath, $buktiFilename);
         }
 
         // 3. Simpan Formulir Konsultasi

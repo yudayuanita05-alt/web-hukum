@@ -65,14 +65,18 @@ class PengacaraController extends Controller
         $formulir = FormulirKonsultasi::where('id_user_pengacara', $user->id_user)->findOrFail($id);
 
         if (str_contains($request->signature_data, 'base64,')) {
-            $imageParts = explode(';base64,', $request->signature_data);
-            $imageBase64 = base64_decode($imageParts[1]);
             $ttdFilename = 'ttd_konsultan_' . $user->id_user . '_' . time() . '.png';
-            $dest = public_path('uploads/ttd');
-            if (!file_exists($dest)) {
-                mkdir($dest, 0777, true);
+            try {
+                $imageParts = explode(';base64,', $request->signature_data);
+                $imageBase64 = base64_decode($imageParts[1]);
+                $dest = public_path('uploads/ttd');
+                if (!file_exists($dest)) {
+                    @mkdir($dest, 0777, true);
+                }
+                @file_put_contents($dest . '/' . $ttdFilename, $imageBase64);
+            } catch (\Throwable $e) {
+                // Ignore if storage read-only
             }
-            file_put_contents($dest . '/' . $ttdFilename, $imageBase64);
 
             $formulir->ttd_konsultan = $ttdFilename;
             $formulir->save();

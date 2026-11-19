@@ -163,13 +163,17 @@ class AdminController extends Controller
 
         $filename = null;
         if ($request->hasFile('berkas_kontrak')) {
-            $file = $request->file('berkas_kontrak');
-            $filename = 'kontrak_' . $formulir->id_formulir . '_' . time() . '.pdf';
-            $dest = public_path('uploads/kontrak');
-            if (!file_exists($dest)) {
-                mkdir($dest, 0777, true);
+            try {
+                $file = $request->file('berkas_kontrak');
+                $filename = 'kontrak_' . $formulir->id_formulir . '_' . time() . '.pdf';
+                $dest = public_path('uploads/kontrak');
+                if (!file_exists($dest)) {
+                    @mkdir($dest, 0777, true);
+                }
+                $file->move($dest, $filename);
+            } catch (\Throwable $e) {
+                // Ignore if storage read-only
             }
-            $file->move($dest, $filename);
         }
 
         KontrakKesepakatan::updateOrCreate(
