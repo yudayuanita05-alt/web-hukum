@@ -15,7 +15,7 @@
                     <p class="text-muted small">Daftarkan akun untuk mengajukan konsultasi & memantau perkara hukum Anda</p>
                 </div>
 
-                <form action="{{ route('register.post') }}" method="POST">
+                <form action="{{ route('register.post', [], false) }}" method="POST">
                     @csrf
                     <div class="mb-3">
                         <label class="form-label fw-semibold">Nama Lengkap Sesuai KTP <span class="text-danger">*</span></label>

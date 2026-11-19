@@ -15,7 +15,7 @@
                     <p class="text-muted small">Silakan masuk menggunakan akun terdaftar Anda</p>
                 </div>
 
-                <form action="{{ route('login.post') }}" method="POST">
+                <form action="{{ route('login.post', [], false) }}" method="POST">
                     @csrf
                     <div class="mb-3">
                         <label class="form-label fw-semibold">Username</label>

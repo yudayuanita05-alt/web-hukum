@@ -11,7 +11,7 @@
                     <h3 class="fw-bold text-navy">Login Administrator</h3>
                     <p class="text-muted small">Masukkan kredensial admin untuk mengakses panel</p>
                 </div>
-                <form action="{{ route('login.post') }}" method="POST">
+                <form action="{{ route('login.post', [], false) }}" method="POST">
                     @csrf
                     <div class="mb-3">
                         <label class="form-label fw-semibold">Username</label>
