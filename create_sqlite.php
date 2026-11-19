@@ -268,3 +268,4 @@ foreach ($chats as $ch) {
 }
 
 echo "SUCCESS: database/database.sqlite berhasil dibuat dengan skema & data lengkap!\n";
+

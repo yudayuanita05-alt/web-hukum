@@ -15,20 +15,28 @@ foreach ($tmpDirs as $dir) {
     }
 }
 
-// Inisialisasi Database SQLite di /tmp agar writable di Vercel
-$sqliteSource = __DIR__ . '/../database/database.sqlite';
-$sqliteDest = '/tmp/database.sqlite';
-if (!file_exists($sqliteDest) && file_exists($sqliteSource)) {
-    @copy($sqliteSource, $sqliteDest);
+// Deteksi sertifikat SSL CA untuk koneksi TiDB Cloud
+$caFile = __DIR__ . '/../storage/cacert.pem';
+if (!file_exists($caFile)) {
+    if (file_exists('/etc/pki/tls/certs/ca-bundle.crt')) {
+        $caFile = '/etc/pki/tls/certs/ca-bundle.crt';
+    } elseif (file_exists('/etc/ssl/certs/ca-certificates.crt')) {
+        $caFile = '/etc/ssl/certs/ca-certificates.crt';
+    }
 }
 
-// Environment variables untuk runtime Vercel
+// Environment variables untuk runtime Vercel (Terhubung ke TiDB Cloud)
 $envVars = [
     'APP_KEY' => 'base64:2/yOLZxJSc/BNo65v7BOdFiUKr+VWSd7FmhzcaWziVo=',
     'APP_ENV' => 'production',
     'APP_DEBUG' => 'true',
-    'DB_CONNECTION' => 'sqlite',
-    'DB_DATABASE' => file_exists($sqliteDest) ? $sqliteDest : $sqliteSource,
+    'DB_CONNECTION' => 'mysql',
+    'DB_HOST' => 'gateway01.ap-southeast-1.prod.aws.tidbcloud.com',
+    'DB_PORT' => '4000',
+    'DB_DATABASE' => 'db_hukum',
+    'DB_USERNAME' => '39JvCyG2eSrZwKE.root',
+    'DB_PASSWORD' => 'bEABqRMoNJ9iMkZT',
+    'MYSQL_ATTR_SSL_CA' => $caFile,
     'VIEW_COMPILED_PATH' => '/tmp/storage/framework/views',
     'APP_SERVICES_CACHE' => '/tmp/services.php',
     'APP_PACKAGES_CACHE' => '/tmp/packages.php',
