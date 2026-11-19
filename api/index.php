@@ -44,7 +44,8 @@ $envVars = [
     'APP_ROUTES_CACHE' => '/tmp/routes.php',
     'APP_EVENTS_CACHE' => '/tmp/events.php',
     'CACHE_STORE' => 'array',
-    'SESSION_DRIVER' => 'cookie',
+    'SESSION_DRIVER' => 'database',
+    'SESSION_LIFETIME' => '120',
     'LOG_CHANNEL' => 'stderr',
 ];
 

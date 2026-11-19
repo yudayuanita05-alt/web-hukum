@@ -160,18 +160,18 @@ INSERT INTO `web_hukum_klasterisasi` (`id_klasterisasi`, `nama_klasterisasi`, `k
 
 -- Data User (Hash bcrypt untuk 'password123')
 INSERT INTO `web_hukum_user` (`id_user`, `id_role`, `name`, `username`, `image`, `password`, `is_active`, `date_created`) VALUES
-(1, 1, 'Sekretaris Kantor', 'admin', 'default.jpg', '$2y$12$RjVjS62hBwJkXkZvZ5kEPeUfU6oOvyFhUfx4v9n0w5v0yUaWz6Gey', 1, 1762711200),
-(2, 4, 'Ahmad Handoko, S.H., M.H.', 'pimpinan', 'default.jpg', '$2y$12$RjVjS62hBwJkXkZvZ5kEPeUfU6oOvyFhUfx4v9n0w5v0yUaWz6Gey', 1, 1762711200),
-(3, 2, 'Yopi Hendro, S.H., M.H.', 'pengacara1', 'default.jpg', '$2y$12$RjVjS62hBwJkXkZvZ5kEPeUfU6oOvyFhUfx4v9n0w5v0yUaWz6Gey', 1, 1762711200),
-(4, 2, 'Ahmad Handoko, S.H., M.H.', 'ahmad_handoko', 'default.jpg', '$2y$12$RjVjS62hBwJkXkZvZ5kEPeUfU6oOvyFhUfx4v9n0w5v0yUaWz6Gey', 1, 1762711200),
-(5, 2, 'M. Reza Pahlevi, S.H., M.H.', 'reza_pahlevi', 'default.jpg', '$2y$12$RjVjS62hBwJkXkZvZ5kEPeUfU6oOvyFhUfx4v9n0w5v0yUaWz6Gey', 1, 1762711200),
-(6, 2, 'Dian Safitri, S.H., M.Kn.', 'dian_safitri', 'default.jpg', '$2y$12$RjVjS62hBwJkXkZvZ5kEPeUfU6oOvyFhUfx4v9n0w5v0yUaWz6Gey', 1, 1762711200),
-(7, 2, 'Fajar Ramadhan, S.H.', 'fajar_ramadhan', 'default.jpg', '$2y$12$RjVjS62hBwJkXkZvZ5kEPeUfU6oOvyFhUfx4v9n0w5v0yUaWz6Gey', 1, 1762711200),
-(8, 3, 'Firhan Danuarta', 'klien1', 'default.jpg', '$2y$12$RjVjS62hBwJkXkZvZ5kEPeUfU6oOvyFhUfx4v9n0w5v0yUaWz6Gey', 1, 1762711200),
-(9, 3, 'Budi Santoso', 'klien2', 'default.jpg', '$2y$12$RjVjS62hBwJkXkZvZ5kEPeUfU6oOvyFhUfx4v9n0w5v0yUaWz6Gey', 1, 1762711200),
-(10, 3, 'Siti Nurhaliza', 'klien3', 'default.jpg', '$2y$12$RjVjS62hBwJkXkZvZ5kEPeUfU6oOvyFhUfx4v9n0w5v0yUaWz6Gey', 1, 1762711200),
-(11, 3, 'Andi Wijaya', 'klien4', 'default.jpg', '$2y$12$RjVjS62hBwJkXkZvZ5kEPeUfU6oOvyFhUfx4v9n0w5v0yUaWz6Gey', 1, 1762711200),
-(12, 3, 'Hendra Kurniawan', 'klien5', 'default.jpg', '$2y$12$RjVjS62hBwJkXkZvZ5kEPeUfU6oOvyFhUfx4v9n0w5v0yUaWz6Gey', 1, 1762711200);
+(1, 1, 'Sekretaris Kantor', 'admin', 'default.jpg', '$2y$10$CC/NXR9xu3BKVTgkBmFckO29ivu8K5mkeUoNPnov.2U1eHPz5R4p2', 1, 1762711200),
+(2, 4, 'Ahmad Handoko, S.H., M.H.', 'pimpinan', 'default.jpg', '$2y$10$CC/NXR9xu3BKVTgkBmFckO29ivu8K5mkeUoNPnov.2U1eHPz5R4p2', 1, 1762711200),
+(3, 2, 'Yopi Hendro, S.H., M.H.', 'pengacara1', 'default.jpg', '$2y$10$CC/NXR9xu3BKVTgkBmFckO29ivu8K5mkeUoNPnov.2U1eHPz5R4p2', 1, 1762711200),
+(4, 2, 'Ahmad Handoko, S.H., M.H.', 'ahmad_handoko', 'default.jpg', '$2y$10$CC/NXR9xu3BKVTgkBmFckO29ivu8K5mkeUoNPnov.2U1eHPz5R4p2', 1, 1762711200),
+(5, 2, 'M. Reza Pahlevi, S.H., M.H.', 'reza_pahlevi', 'default.jpg', '$2y$10$CC/NXR9xu3BKVTgkBmFckO29ivu8K5mkeUoNPnov.2U1eHPz5R4p2', 1, 1762711200),
+(6, 2, 'Dian Safitri, S.H., M.Kn.', 'dian_safitri', 'default.jpg', '$2y$10$CC/NXR9xu3BKVTgkBmFckO29ivu8K5mkeUoNPnov.2U1eHPz5R4p2', 1, 1762711200),
+(7, 2, 'Fajar Ramadhan, S.H.', 'fajar_ramadhan', 'default.jpg', '$2y$10$CC/NXR9xu3BKVTgkBmFckO29ivu8K5mkeUoNPnov.2U1eHPz5R4p2', 1, 1762711200),
+(8, 3, 'Firhan Danuarta', 'klien1', 'default.jpg', '$2y$10$CC/NXR9xu3BKVTgkBmFckO29ivu8K5mkeUoNPnov.2U1eHPz5R4p2', 1, 1762711200),
+(9, 3, 'Budi Santoso', 'klien2', 'default.jpg', '$2y$10$CC/NXR9xu3BKVTgkBmFckO29ivu8K5mkeUoNPnov.2U1eHPz5R4p2', 1, 1762711200),
+(10, 3, 'Siti Nurhaliza', 'klien3', 'default.jpg', '$2y$10$CC/NXR9xu3BKVTgkBmFckO29ivu8K5mkeUoNPnov.2U1eHPz5R4p2', 1, 1762711200),
+(11, 3, 'Andi Wijaya', 'klien4', 'default.jpg', '$2y$10$CC/NXR9xu3BKVTgkBmFckO29ivu8K5mkeUoNPnov.2U1eHPz5R4p2', 1, 1762711200),
+(12, 3, 'Hendra Kurniawan', 'klien5', 'default.jpg', '$2y$10$CC/NXR9xu3BKVTgkBmFckO29ivu8K5mkeUoNPnov.2U1eHPz5R4p2', 1, 1762711200);
 
 -- Data Kasus / Formulir Konsultasi
 INSERT INTO `web_hukum_formulir_konsultasi` (
