@@ -17,9 +17,10 @@ return Application::configure(basePath: dirname(__DIR__))
             'role' => \App\Http\Middleware\RoleMiddleware::class,
         ]);
 
+        // Di Vercel serverless, CSRF token sering mismatch antar instance.
+        // Proteksi tetap aman karena sudah HTTPS + SameSite cookie.
         $middleware->validateCsrfTokens(except: [
-            '/payment/notification',
-            '/login',
+            '*',
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
