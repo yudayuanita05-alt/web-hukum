@@ -67,7 +67,7 @@ class AuthController extends Controller
                 return back()->with('error', 'Akun Anda sedang dinonaktifkan. Silakan hubungi Sekretariat kantor.');
             }
 
-            Auth::login($user, $request->has('remember'));
+            Auth::login($user);
             $request->session()->regenerate();
 
             return $this->redirectByRole($user);

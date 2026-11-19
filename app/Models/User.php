@@ -68,4 +68,19 @@ class User extends Authenticatable
     {
         return (int)$this->id_role === 3;
     }
+
+    public function getRememberToken()
+    {
+        return null;
+    }
+
+    public function setRememberToken($value)
+    {
+        // Table web_hukum_user does not have remember_token column
+    }
+
+    public function getRememberTokenName()
+    {
+        return '';
+    }
 }
