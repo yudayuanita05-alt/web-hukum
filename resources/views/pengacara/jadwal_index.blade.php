@@ -3,8 +3,7 @@
 @section('title', 'Agenda Sidang & Jadwal Temu Advokat')
 
 @section('styles')
-<!-- FullCalendar v6 CDN -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/main.min.css">
+<!-- FullCalendar v6 -->
 <style>
     .fc .fc-toolbar-title {
         font-size: 1.25rem;
@@ -196,8 +195,11 @@
         const calendarEl = document.getElementById('calendar');
         const eventModal = new bootstrap.Modal(document.getElementById('eventModal'));
 
+        const eventsData = {!! json_encode($eventsJson ?? []) !!};
+
         const calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'dayGridMonth',
+            initialDate: '2026-11-20',
             locale: 'id',
             headerToolbar: {
                 left: 'prev,next today',
@@ -210,7 +212,7 @@
                 week: 'Minggu',
                 list: 'Agenda'
             },
-            events: "{{ route('jadwal.events') }}",
+            events: eventsData.length > 0 ? eventsData : "{{ route('jadwal.events') }}",
             eventClick: function(info) {
                 const props = info.event.extendedProps;
                 

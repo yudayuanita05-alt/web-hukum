@@ -14,12 +14,11 @@ class JadwalController extends Controller
      */
     public function indexAdmin(Request $request)
     {
-        $advokatList = User::where('id_role', 2)->where('status', 1)->get();
+        $advokatList = User::where('id_role', 2)->where('is_active', 1)->get();
         $selectedAdvokat = $request->get('advokat_id');
 
         // Agenda Terdekat (Mulai hari ini ke depan)
         $agendaMendatang = FormulirKonsultasi::with(['user', 'pengacara', 'klasterisasi'])
-            ->where('status_jadwal_temu', 2)
             ->whereNotNull('tgl_waktu_jadwal_temu')
             ->where('tgl_waktu_jadwal_temu', '>=', now()->startOfDay())
             ->when($selectedAdvokat, function ($q) use ($selectedAdvokat) {
@@ -31,26 +30,29 @@ class JadwalController extends Controller
 
         // Agenda Lewat / Riwayat
         $riwayatAgenda = FormulirKonsultasi::with(['user', 'pengacara', 'klasterisasi'])
-            ->where('status_jadwal_temu', 2)
             ->whereNotNull('tgl_waktu_jadwal_temu')
             ->where('tgl_waktu_jadwal_temu', '<', now()->startOfDay())
+            ->when($selectedAdvokat, function ($q) use ($selectedAdvokat) {
+                return $q->where('id_user_pengacara', $selectedAdvokat);
+            })
             ->orderBy('tgl_waktu_jadwal_temu', 'desc')
             ->take(10)
             ->get();
 
-        return view('admin.jadwal_index', compact('advokatList', 'selectedAdvokat', 'agendaMendatang', 'riwayatAgenda'));
+        $eventsJson = $this->getEventsJson($request)->getData();
+
+        return view('admin.jadwal_index', compact('advokatList', 'selectedAdvokat', 'agendaMendatang', 'riwayatAgenda', 'eventsJson'));
     }
 
     /**
      * Tampilan Kalender & Agenda untuk Advokat / Pengacara
      */
-    public function indexPengacara()
+    public function indexPengacara(Request $request)
     {
         $user = Auth::user();
 
         $agendaMendatang = FormulirKonsultasi::with(['user', 'klasterisasi'])
             ->where('id_user_pengacara', $user->id_user)
-            ->where('status_jadwal_temu', 2)
             ->whereNotNull('tgl_waktu_jadwal_temu')
             ->where('tgl_waktu_jadwal_temu', '>=', now()->startOfDay())
             ->orderBy('tgl_waktu_jadwal_temu', 'asc')
@@ -58,14 +60,15 @@ class JadwalController extends Controller
 
         $riwayatAgenda = FormulirKonsultasi::with(['user', 'klasterisasi'])
             ->where('id_user_pengacara', $user->id_user)
-            ->where('status_jadwal_temu', 2)
             ->whereNotNull('tgl_waktu_jadwal_temu')
             ->where('tgl_waktu_jadwal_temu', '<', now()->startOfDay())
             ->orderBy('tgl_waktu_jadwal_temu', 'desc')
             ->take(10)
             ->get();
 
-        return view('pengacara.jadwal_index', compact('agendaMendatang', 'riwayatAgenda'));
+        $eventsJson = $this->getEventsJson($request)->getData();
+
+        return view('pengacara.jadwal_index', compact('agendaMendatang', 'riwayatAgenda', 'eventsJson'));
     }
 
     /**
@@ -77,7 +80,6 @@ class JadwalController extends Controller
 
         $agendaList = FormulirKonsultasi::with(['pengacara', 'klasterisasi'])
             ->where('id_user', $user->id_user)
-            ->where('status_jadwal_temu', 2)
             ->whereNotNull('tgl_waktu_jadwal_temu')
             ->orderBy('tgl_waktu_jadwal_temu', 'asc')
             ->get();
@@ -92,7 +94,6 @@ class JadwalController extends Controller
     {
         $user = Auth::user();
         $query = FormulirKonsultasi::with(['user', 'pengacara', 'klasterisasi'])
-            ->where('status_jadwal_temu', 2)
             ->whereNotNull('tgl_waktu_jadwal_temu');
 
         // Filter role

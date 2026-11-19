@@ -3,8 +3,7 @@
 @section('title', 'Kalender Agenda Sidang & Jadwal Temu')
 
 @section('styles')
-<!-- FullCalendar v6 CDN -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/main.min.css">
+<!-- FullCalendar v6 -->
 <style>
     .fc .fc-toolbar-title {
         font-size: 1.25rem;
@@ -105,7 +104,7 @@
         <!-- Interactive Calendar (FullCalendar) -->
         <div class="col-lg-8">
             <div class="card card-custom p-4 shadow-sm h-100">
-                <div id="calendar"></div>
+                <div id="calendar" style="min-height: 650px;"></div>
             </div>
         </div>
 
@@ -257,10 +256,11 @@
         const eventModal = new bootstrap.Modal(document.getElementById('eventModal'));
 
         const advokatId = "{{ $selectedAdvokat ?? '' }}";
-        const eventsUrl = "{{ route('jadwal.events') }}" + (advokatId ? '?advokat_id=' + advokatId : '');
+        const eventsData = {!! json_encode($eventsJson ?? []) !!};
 
         const calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'dayGridMonth',
+            initialDate: '2026-11-20',
             locale: 'id',
             headerToolbar: {
                 left: 'prev,next today',
@@ -274,7 +274,7 @@
                 day: 'Hari',
                 list: 'Daftar Agenda'
             },
-            events: eventsUrl,
+            events: eventsData.length > 0 ? eventsData : "{{ route('jadwal.events') }}" + (advokatId ? '?advokat_id=' + advokatId : ''),
             eventTimeFormat: {
                 hour: '2-digit',
                 minute: '2-digit',
