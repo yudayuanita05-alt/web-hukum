@@ -9,7 +9,7 @@
   },
   "routes": [
     {
-      "src": "/(css|js|images|fonts|build|favicon.ico|robots.txt)(.*)",
+      "src": "/(css|js|images|fonts|build|uploads|favicon.ico|robots.txt)(.*)",
       "dest": "/public/$1$2"
     },
     {
@@ -20,6 +20,9 @@
   "env": {
     "APP_ENV": "production",
     "APP_DEBUG": "true",
+    "APP_KEY": "base64:2/yOLZxJSc/BNo65v7BOdFiUKr+VWSd7FmhzcaWziVo=",
+    "DB_CONNECTION": "sqlite",
+    "DB_DATABASE": "/tmp/database.sqlite",
     "APP_CONFIG_CACHE": "/tmp/config.php",
     "APP_EVENTS_CACHE": "/tmp/events.php",
     "APP_PACKAGES_CACHE": "/tmp/packages.php",
